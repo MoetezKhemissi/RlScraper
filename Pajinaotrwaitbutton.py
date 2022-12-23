@@ -38,7 +38,7 @@ def item_parse(items):
     for item in items:
             itemf = item.find_element(By.CLASS_NAME, "rlg-item__text").find_element(By.CLASS_NAME, "rlg-item__name")
             item_name=itemf.text
-    #TODO more granular data like color quantity
+    #TODO name without prefixes
             dict_item.update({"name":item_name})
             quantity_exists=len(item.find_elements(By.CLASS_NAME, "rlg-item__quantity"))
             if (quantity_exists!=0):
