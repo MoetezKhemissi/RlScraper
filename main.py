@@ -55,6 +55,9 @@ def get_buying_json(driver,item,NbPages,request_time):
 #TODO add max date 
 def export_buy_sell_data_json(driver,item,n,request_time):
     get_buying_json(driver,item,n,request_time)
+    driver.refresh()
+    time.sleep(1)
+    request_time = fresh_start(driver)
     get_selling_json(driver,item,n,request_time)
 #--------------BLOCK to be replaced by auto selector-----------#
 item={"paint":"Cobalt","item":"Zomba"}
