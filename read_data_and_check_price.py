@@ -100,7 +100,9 @@ def graph_Demand_offer(item):
 
 
 
-item={'name':'Zomba','color':'Crimson'}
+item={'name':'Zomba','color':'Cobalt'}
+df = px.data.stocks()
+print(df)
 graph_Demand_offer(item)
 
 #TODO add timestamps and thus add liquitity bous ( if seller was afk too long affect action speed and pricing do absolute parameters and then make it depend)

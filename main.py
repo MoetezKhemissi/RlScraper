@@ -52,19 +52,19 @@ def get_buying_json(driver,item,NbPages,request_time):
     Parsed_trades=parse_data(Trades,request_time)
     filename='Buying_'+item["item"]+"_"+item["paint"]
     json_write(filename,Parsed_trades)
-
+#TODO add max date 
+def export_buy_sell_data_json(driver,item,n,request_time):
+    get_buying_json(driver,item,n,request_time)
+    get_selling_json(driver,item,n,request_time)
 #--------------BLOCK to be replaced by auto selector-----------#
 item={"paint":"Cobalt","item":"Zomba"}
 driver = webdriver.Chrome()
 driver.maximize_window()
 request_time = fresh_start(driver)
-get_buying_json(driver,item,1,request_time)
-get_selling_json(driver,item,1,request_time)
+export_buy_sell_data_json(driver,item,3,request_time)
 #--------------------------------------
 
 time.sleep(10)
 
 
-#TODO better logic than from import
 #TODO automatically check item
-#TODO for fun progress bars for data getting

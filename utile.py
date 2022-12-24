@@ -27,6 +27,8 @@ def time_transformer(current_date,time):
     print("time is :", time)
     x = time.split()
     match x[1]:
+        case "months" | "months," | "month" | "month,":
+            new_date= current_date + timedelta(hours=-24*int(x[0]), minutes=0, seconds=0)
         case "days" | "days," | "day" | "day,":
             new_date= current_date + timedelta(hours=-24*int(x[0]), minutes=0, seconds=0)
         case "hours" | "hours," | "hour" | "hour,":
