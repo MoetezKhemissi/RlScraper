@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
 from datetime import datetime
-
+from utile import progress_bar
 
 
 #---------------------Get Data from each page of site----------------
@@ -43,10 +43,14 @@ def item_parse(items):
     return array_items
 
 #---------------------Get GENERAL Fields from each trade----------------
+
 def parse_data(Trades):
     indiv_trade={"trader":"","time": "","Hasitems": [],"WantItems":[]}
     Parsed_trades = []
+    progress_bar(0,len(Trades))
+    i=0
     for trade in Trades:
+        i=i+1
         name_trader = trade.find_element(By.CLASS_NAME, "rlg-trade__username").text
         has_items = trade.find_element(By.CLASS_NAME, "rlg-trade__itemshas").find_elements(By.CLASS_NAME, "rlg-item")
         want_items=trade.find_element(By.CLASS_NAME, "rlg-trade__itemswants").find_elements(By.CLASS_NAME, "rlg-item")
@@ -57,6 +61,7 @@ def parse_data(Trades):
         indiv_trade.update({"trader":name_trader,"time": time_trade,"Hasitems": array_has_items,"WantItems":array_want_items})
         Parsed_trades.append(indiv_trade.copy())
         print(indiv_trade)
+        progress_bar(i+1,len(Trades))
     return Parsed_trades
 
 #---------------------Transform to json and print to file ----------------
