@@ -6,19 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
 from datetime import datetime
-driver = webdriver.Chrome()
-driver.get("https://rocket-league.com/trading")
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
-print("Current Time =", current_time)
-Button =  driver.find_element(By.ID, "acceptPrivacyPolicy")
-# click it
 
-# lazy timing TODO get server time for synchro
-Button.click()
-Parsed_trades = []
-indiv_trade={"trader":"","time": "","Hasitems": [],"WantItems":[]}
-time.sleep(1)
+
 
 #---------------------Get Data from each page of site----------------
 def getData(n,driver):
@@ -55,6 +44,7 @@ def item_parse(items):
 
 #---------------------Get GENERAL Fields from each trade----------------
 def parse_data(Trades):
+    indiv_trade={"trader":"","time": "","Hasitems": [],"WantItems":[]}
     Parsed_trades = []
     for trade in Trades:
         name_trader = trade.find_element(By.CLASS_NAME, "rlg-trade__username").text
@@ -78,11 +68,6 @@ def json_write(name,Parsed_trades):
 
 
 #----------------MAIN---------------------------------
-
-Trades = getData(2,driver)
-Parsed_trades=parse_data(Trades)
-json_write('testing',Parsed_trades)
-driver.close()
 
 #TODO URGENT has items want items + has items  1 to 1 mapping + credit 
 #TODO individual item load prices

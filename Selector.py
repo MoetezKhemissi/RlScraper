@@ -13,7 +13,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 import time
-import utils
+import utile
 def fresh_start(driver):
     driver.get("https://rocket-league.com/trading")
     now = datetime.now()
@@ -29,7 +29,11 @@ def get_fields_select(driver,name):
     list = Selected_options.find_element(By.CLASS_NAME, "chosen-results")
     final_list = list.find_elements(By.TAG_NAME, "li")
     return final_list
-
+def footer_blocker(driver):
+    aanoyingfooter=driver.find_elements(By.CLASS_NAME, "vm-footer-content ")
+    if (len(aanoyingfooter)!=0):
+        driver.execute_script("document.getElementsByClassName('vm-footer-content')[0].style.display = 'none';")
+        print("----------SUCCESSFUL FOOTER BLOCK ---------------")
 
 #Possible select_from values:
 #   "item"
@@ -39,26 +43,17 @@ def select_field(driver,select_from,value_to_be_selected):
     fields = get_fields_select(driver,select_from)
     for element in fields:
         if(element.text==value_to_be_selected):
+            footer_blocker(driver)
             element.click()
+            break
 
 def get_all_possible_values(driver,select_from):
     values=[]
     fields = get_fields_select(driver,select_from)
     for element in fields:
         values.append(element.text)
+    print(values)
     return values
 def get_possible_values_and_export_csv(driver,select_from):
-    utils.json_write(select_from,get_all_possible_values(driver,select_from))
+    utile.json_write(select_from,get_all_possible_values(driver,select_from))
 
-items=[]
-test_with_string="All Decals"
-name="item"
-driver = webdriver.Chrome()
-fresh_start(driver)
-get_possible_values_and_export_csv(driver,"platform")
-
-driver.close()
-# todo get item list paint list platform
-
-def search_list_export_pdf():
-    pass

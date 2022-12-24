@@ -1,7 +1,7 @@
 import json
   
 # Opening JSON file
-f = open('GreyZigzag.json')
+f = open('TW_Octane.json')
 import plotly.express as px
 
 # returns JSON object as 
@@ -37,7 +37,7 @@ def check_equal_item(item_to_check,item):
         else:
             test=False
     return test
-item={'name':'Zigzag','color':'Grey'}
+item={'name':'Octane','color':'Titanium White'}
 def get_selling_prices_for_item(item):
     prices=[]
     for trade in data:
