@@ -24,7 +24,7 @@ import time
 
 
 #TODO shorten down by having common elements in functions
-def get_selling_json(driver,item,NbPages):
+def get_selling_json(driver,item,NbPages,request_time):
     select_field(driver,"paint",item["paint"])
     select_field(driver,"item",item["item"])
     select_field(driver,"cert","None")
@@ -32,13 +32,13 @@ def get_selling_json(driver,item,NbPages):
     form = driver.find_element(By.TAG_NAME,"form")
     footer_blocker(driver)
     form.find_element(By.XPATH,"/html/body/main/div/div/div[1]/div[2]/div/div/form/input").click()
-    print("Selling data collection:")
+    print("Selling data collection for ",item["item"],":")
     Trades = getData(NbPages,driver)
-    Parsed_trades=parse_data(Trades)
+    Parsed_trades=parse_data(Trades,request_time)
     #TODO filename with fiename = buyin + nameitem + timestamp
-    filename='selling_'+item["item"]
+    filename='selling_'+item["item"]+"_"+item["paint"]
     json_write(filename,Parsed_trades)
-def get_buying_json(driver,item,NbPages):
+def get_buying_json(driver,item,NbPages,request_time):
     select_field(driver,"paint",item["paint"])
     select_field(driver,"item",item["item"])
     select_field(driver,"cert","None")
@@ -47,17 +47,19 @@ def get_buying_json(driver,item,NbPages):
     form = driver.find_element(By.TAG_NAME,"form")
     footer_blocker(driver)
     form.find_element(By.XPATH,"/html/body/main/div/div/div[1]/div[2]/div/div/form/input").click()
-    print("Buying data collection:")
+    print("Buying data collection for ",item["item"],":")
     Trades = getData(NbPages,driver)
-    Parsed_trades=parse_data(Trades)
-    filename='Buying_'+item["item"]
+    Parsed_trades=parse_data(Trades,request_time)
+    filename='Buying_'+item["item"]+"_"+item["paint"]
     json_write(filename,Parsed_trades)
 
 #--------------BLOCK to be replaced by auto selector-----------#
-item={"paint":"Titanium White","item":"Zomba"}
+item={"paint":"Cobalt","item":"Zomba"}
 driver = webdriver.Chrome()
-fresh_start(driver)
-get_selling_json(driver,item,5)
+driver.maximize_window()
+request_time = fresh_start(driver)
+get_buying_json(driver,item,1,request_time)
+get_selling_json(driver,item,1,request_time)
 #--------------------------------------
 
 time.sleep(10)

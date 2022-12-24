@@ -76,13 +76,20 @@ def graph_Demand_offer(item):
         int_buying_prices.append(int(price))
     for price in selling_prices:
         int_selling_prices.append(int(price))
-    x = np.arange(0, len(int_selling_prices), 1)
+    
     print("selling size " ,len(int_selling_prices))
     print("buying size " ,len(int_buying_prices))
     #TODO PAdding function
-    diff= len(int_selling_prices)-len(int_buying_prices)
-    for i in range(0,diff):
-        int_buying_prices.append(0)
+    if len(int_selling_prices)>len(int_buying_prices):
+        x = np.arange(0, len(int_selling_prices), 1)
+        diff= len(int_selling_prices)-len(int_buying_prices)
+        for i in range(0,diff):
+            int_buying_prices.append(0)
+    else:
+        x = np.arange(0, len(int_buying_prices), 1)
+        diff= len(int_buying_prices)-len(int_selling_prices)
+        for i in range(0,diff):
+            int_selling_prices.append(0)
     GraphToShow = {'To_be_replaced_with_time':x,'selling_price':int_selling_prices,'buying_price':int_buying_prices}
     df = pd.DataFrame(GraphToShow)
     fig = px.line(df)
@@ -93,7 +100,7 @@ def graph_Demand_offer(item):
 
 
 
-item={'name':'Zomba','color':'Titanium White'}
+item={'name':'Zomba','color':'Crimson'}
 graph_Demand_offer(item)
 
 #TODO add timestamps and thus add liquitity bous ( if seller was afk too long affect action speed and pricing do absolute parameters and then make it depend)

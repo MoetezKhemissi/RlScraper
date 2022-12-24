@@ -17,10 +17,9 @@ import utile
 def fresh_start(driver):
     driver.get("https://rocket-league.com/trading")
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
     Button =  driver.find_element(By.ID, "acceptPrivacyPolicy")
     Button.click()
-    return current_time
+    return now
 def get_fields_select(driver,name):
 
     path_to_fields="rlg-itemfilter__"+name
