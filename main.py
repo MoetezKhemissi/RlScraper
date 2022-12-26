@@ -56,18 +56,53 @@ def get_buying_json(driver,item,NbPages,request_time):
 def export_buy_sell_data_json(driver,item,n,request_time):
     get_buying_json(driver,item,n,request_time)
     driver.refresh()
+    request_time = datetime.now()
     time.sleep(1)
-    request_time = fresh_start(driver)
     get_selling_json(driver,item,n,request_time)
 #--------------BLOCK to be replaced by auto selector-----------#
-item={"paint":"Cobalt","item":"Zomba"}
+item1={"paint":"Cobalt","item":"Zomba"}
+item2={"paint":"Crimson","item":"Zomba"}
+item3={"paint":"Lime","item":"Zomba"}
+item4={"paint":"Titanium White","item":"Zomba"}
+item5={"paint":"Saffron","item":"Zomba"}
+item6={"paint":"Cobalt","item":"Octane"}
+item7={"paint":"Crimson","item":"Octane"}
+item8={"paint":"Lime","item":"Octane"}
+item9={"paint":"Titanium White","item":"Octane"}
+item10={"paint":"Saffron","item":"Octane"}
+item11={"paint":"Cobalt","item":"Draco"}
+item12={"paint":"Crimson","item":"Draco"}
+item13={"paint":"Lime","item":"Draco"}
+item14={"paint":"Titanium White","item":"Draco"}
+item15={"paint":"Saffron","item":"Draco"}
+list_items=[]
+list_items.append(item1)
+list_items.append(item2)
+list_items.append(item3)
+list_items.append(item4)
+list_items.append(item5)
+list_items.append(item6)
+list_items.append(item7)
+list_items.append(item8)
+list_items.append(item9)
+list_items.append(item10)
+list_items.append(item11)
+list_items.append(item12)
+list_items.append(item13)
+list_items.append(item14)
+list_items.append(item15)
 driver = webdriver.Chrome()
 driver.maximize_window()
-request_time = fresh_start(driver)
-export_buy_sell_data_json(driver,item,3,request_time)
+fresh_start(driver)
+for item in list_items:
+    driver.refresh()
+    request_time = datetime.now()
+    time.sleep(1)
+    export_buy_sell_data_json(driver,item,1,request_time)
 #--------------------------------------
 
 time.sleep(10)
 
 
 #TODO automatically check item
+#TODO fix intercepted error

@@ -59,17 +59,19 @@ def get_buying_prices_for_item(item,data):
                     prices.append(has["quantity"])
                     print("selling " , want,"for",has["quantity"] , "credits")
     return prices
-#print('color' in item1)
+
 def graph_Demand_offer(item):
     pass
-    filename1="Buying_"+item["name"]+".json"
+    filename1="Buying_"+item["name"]+"_"+item["paint"]+".json"
     f = open(filename1)
     data = json.load(f)
     buying_prices = get_buying_prices_for_item(item,data)
-    filename2="selling_"+item["name"]+".json"
+    filename2="selling_"+item["name"]+"_"+item["paint"]+".json"
     f2 = open(filename2)
     data2 = json.load(f2)
+    print(data2)
     selling_prices=get_selling_prices_for_item(item,data2)
+    print(selling_prices)
     int_buying_prices=[]
     int_selling_prices=[]
     for price in buying_prices:
@@ -100,9 +102,7 @@ def graph_Demand_offer(item):
 
 
 
-item={'name':'Zomba','color':'Cobalt'}
-df = px.data.stocks()
-print(df)
+item={'name':'Draco','paint':'Crimson'}
 graph_Demand_offer(item)
 
 #TODO add timestamps and thus add liquitity bous ( if seller was afk too long affect action speed and pricing do absolute parameters and then make it depend)

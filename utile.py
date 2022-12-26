@@ -39,7 +39,7 @@ def time_transformer(current_date,time):
             new_date= current_date + timedelta(hours=0, minutes=0, seconds=-int(x[0]))
     return new_date
 
-
+print(all_paint_list())
 
 def dummy_function():
     print("test")
